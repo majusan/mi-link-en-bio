@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+/* --- Variables CSS para Modo Oscuro y Colores Base --- */
+:root {
+    /* Modo Claro por defecto */
+    --body-bg-gradient-start: #89a8e0;
+    --body-bg-gradient-end: #4a388b;
+    --link-container-bg: rgba(255, 255, 255, 0.97);
+    --text-color-h1: #222;
+    --text-color-p: #555;
+    --footer-text-color: #777;
+    --box-shadow-color: rgba(0, 0, 0, 0.25);
+    --profile-border-color: #007bff;
+    --profile-shadow-color: rgba(0, 123, 255, 0.4);
+    --button-shadow-color: rgba(0, 0, 0, 0.2);
+    --button-hover-shadow-color: rgba(0, 0, 0, 0.3);
+    --gallery-shadow-color: rgba(0, 0, 0, 0.1);
+    --gallery-hover-shadow-color: rgba(0, 0, 0, 0.2);
+    --button-text-color: white; /* Aseguramos que el texto del botón sea blanco */
+}
+
+/* Modo Oscuro: se activa si el sistema operativo está en modo oscuro */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg-gradient-start: #2c3e50; /* Azul oscuro */
+        --body-bg-gradient-end: #0a192f;   /* Azul muy oscuro */
+        --link-container-bg: rgba(30, 30, 30, 0.95);
+        --text-color-h1: #f0f0f0;
+        --text-color-p: #c0c0c0;
+        --footer-text-color: #a0a0a0;
+        --box-shadow-color: rgba(0, 0, 0, 0.5);
+        --profile-border-color: #66b3ff;
+        --profile-shadow-color: rgba(102, 179, 255, 0.4);
+        --button-shadow-color: rgba(0, 0, 0, 0.4);
+        --button-hover-shadow-color: rgba(0, 0, 0, 0.6);
+        --gallery-shadow-color: rgba(0, 0, 0, 0.3);
+        --gallery-hover-shadow-color: rgba(0, 0, 0, 0.5);
+        --button-text-color: white; /* Mantenemos el texto del botón blanco */
+    }
+}
+
+/* Modo Oscuro: se activa con la clase 'dark-mode' (para el botón de alternar) */
+body.dark-mode {
+    --body-bg-gradient-start: #2c3e50;
+    --body-bg-gradient-end: #0a192f;
+    --link-container-bg: rgba(30, 30, 30, 0.95);
+    --text-color-h1: #f0f0f0;
+    --text-color-p: #c0c0c0;
+    --footer-text-color: #a0a0a0;
+    --box-shadow-color: rgba(0, 0, 0, 0.5);
+    --profile-border-color: #66b3ff;
+    --profile-shadow-color: rgba(102, 179, 255, 0.4);
+    --button-shadow-color: rgba(0, 0, 0, 0.4);
+    --button-hover-shadow-color: rgba(0, 0, 0, 0.6);
+    --gallery-shadow-color: rgba(0, 0, 0, 0.3);
+    --gallery-hover-shadow-color: rgba(0, 0, 0, 0.5);
+    --button-text-color: white;
+}
+
+/* --- Estilos Generales y del Cuerpo (usando variables) --- */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--body-bg-gradient-start), var(--body-bg-gradient-end));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: var(--text-color-p); /* Color de texto general */
+    box-sizing: border-box;
+    transition: background 0.5s ease, color 0.5s ease; /* Transición suave para el modo oscuro */
+}
+
+.link-container {
+    background-color: var(--link-container-bg);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 15px 40px var(--box-shadow-color);
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+    margin: 20px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease; /* Transición suave */
+    animation: fadeInScale 0.8s ease-out forwards; /* Animación de entrada principal */
+}
+
+/* --- Estilos de la Imagen de Perfil (usando variables y animación) --- */
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--profile-border-color);
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px var(--profile-shadow-color);
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    transform: scale(0.9); /* Empieza un poco más pequeña */
+    opacity: 0; /* Empieza invisible para la animación */
+    animation: profilePicGrow 0.6s ease-out 0.8s forwards; /* Animación con retraso */
+}
+
+/* --- Estilos de Texto (usando variables y transiciones) --- */
+h1 {
+    color: var(--text-color-h1);
+    font-size: 2.5em;
+    margin-bottom: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    transition: color 0.5s ease;
+}
+
+p {
+    color: var(--text-color-p);
+    font-size: 1.15em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    transition: color 0.5s ease;
+}
+
+/* --- Estilos de Botones MEJORADOS (usando variables de sombra y animaciones) --- */
+.link-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 18px auto;
+    padding: 16px 25px;
+    color: var(--button-text-color); /* AQUÍ ASEGURAMOS EL COLOR BLANCO DEL TEXTO */
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 700;
+    transition: all 0.3s ease, box-shadow 0.5s ease; /* Transición para todo y sombra */
+    box-shadow: 0 6px 15px var(--button-shadow-color);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    opacity: 0; /* Empieza invisible para la animación de onda */
+    transform: translateY(20px); /* Empieza un poco abajo */
+    animation: linkWave 0.6s ease-out forwards; /* Animación de onda */
+}
+
+/* Retrasos para la animación de onda de cada botón */
+.link-container a.link-button:nth-of-type(1) { animation-delay: 1.0s; } /* Whatsapp */
+.link-container a.link-button:nth-of-type(2) { animation-delay: 1.1s; } /* Facebook */
+.link-container a.link-button:nth-of-type(3) { animation-delay: 1.2s; } /* Catalogo */
+
+
+.link-button i {
+    margin-right: 10px;
+    font-size: 1.3em;
+    color: var(--button-text-color); /* Aseguramos que el ícono también sea blanco */
+}
+
+.link-button:hover {
+    transform: translateY(-5px) scale(1.02); /* Efecto de elevación y ligero crecimiento */
+    box-shadow: 0 10px 25px var(--button-hover-shadow-color); /* Sombra más grande al pasar el ratón */
+    filter: brightness(1.1); /* Ligeramente más brillante */
+    animation: buttonBounce 0.3s ease-in-out; /* Animación de rebote */
+}
+
+/* Colores específicos de los botones (ESTOS SON LOS COLORES DE FONDO ORIGINALES) */
+.link-button.whatsapp {
+    background-color: #25D366; /* Verde WhatsApp */
+}
+.link-button.whatsapp:hover {
+    background-color: #1DA851;
+}
+
+.link-button.facebook {
+    background-color: #1877F2; /* Azul Facebook */
+}
+.link-button.facebook:hover {
+    background-color: #145CB3;
+}
+
+.link-button.catalog {
+    background-color: #008080; /* Azul verdoso (Teal) */
+}
+.link-button.catalog:hover {
+    background-color: #006666; /* Azul verdoso más oscuro al pasar el ratón */
+}
+
+/* --- Estilos de la Galería --- */
+.gallery-section {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 0 15px; /* Pequeño padding para que no toque los bordes */
+}
+
+.gallery-section h2 {
+    color: var(--text-color-h1);
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    font-weight: 700;
+    transition: color 0.5s ease;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 3 columnas en escritorio, se ajusta a móvil */
+    gap: 15px; /* Espacio entre imágenes */
+    justify-content: center;
+}
+
+.gallery-item {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--gallery-shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* Para animación de entrada */
+    transform: scale(0.9); /* Para animación de entrada */
+    animation: fadeInScale 0.5s ease-out forwards; /* Animación de entrada de la galería */
+}
+
+/* Retrasos para la animación de entrada de cada elemento de la galería */
+.gallery-item:nth-child(1) { animation-delay: 1.4s; }
+.gallery-item:nth-child(2) { animation-delay: 1.5s; }
+.gallery-item:nth-child(3) { animation-delay: 1.6s; }
+.gallery-item:nth-child(4) { animation-delay: 1.7s; }
+.gallery-item:nth-child(5) { animation-delay: 1.8s; }
+.gallery-item:nth-child(6) { animation-delay: 1.9s; }
+
+
+.gallery-item img {
+    width: 100%;
+    height: 120px; /* Altura fija para miniaturas */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+    display: block; /* Elimina espacios extra debajo de la imagen */
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 20px var(--gallery-hover-shadow-color);
+}
+
+
+/* --- Estilos para el Widget de Elfsight (asegura su posición al final) --- */
+.elfsight-reviews-widget {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    overflow: hidden;
+    opacity: 0; /* Para animación de entrada */
+    transform: translateY(20px); /* Para animación de entrada */
+    animation: fadeInScale 0.8s ease-out 2.0s forwards; /* Animación con retraso */
+}
+
+/* --- Estilos de Pie de Página --- */
+.footer-text {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: var(--footer-text-color);
+    transition: color 0.5s ease;
+    opacity: 0; /* Para animación de entrada */
+    transform: translateY(20px); /* Para animación de entrada */
+    animation: fadeInScale 0.8s ease-out 2.2s forwards; /* Animación con retraso */
+}
+
+/* --- Estilos del botón de alternar modo oscuro --- */
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-color-h1); /* Usa el color del título para el ícono */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    transition: color 0.3s ease;
+    padding: 10px;
+    border-radius: 50%;
+    opacity: 0; /* Para animación de entrada */
+    transform: translateY(-20px); /* Para animación de entrada */
+    animation: fadeInScale 0.8s ease-out 0.5s forwards; /* Animación con retraso */
+}
+
+.dark-mode-toggle:hover {
+    color: var(--profile-border-color);
+}
+
+/* --- OPTIMIZACIÓN PARA MÓVIL (Media Queries) --- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .link-container {
+        border-radius: 18px;
+        padding: 25px;
+        margin: 15px auto;
+        box-shadow: 0 10px 25px var(--box-shadow-color);
+    }
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+        border-width: 4px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.05em;
+        margin-bottom: 25px;
+    }
+    .link-button {
+        width: 95%;
+        padding: 14px 20px;
+        font-size: 1.1em;
+        margin: 14px auto;
+        border-radius: 10px;
+    }
+    .link-button i {
+        font-size: 1.2em;
+    }
+    .elfsight-reviews-widget {
+        margin-top: 30px;
+    }
+    .gallery-section h2 {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+    .link-container {
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px auto;
+        box-shadow: 0 8px 20px var(--box-shadow-color);
+    }
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-width: 3px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    p {
+        font-size: 0.95em;
+        margin-bottom: 20px;
+    }
+    .link-button {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 1em;
+        margin: 12px auto;
+        border-radius: 8px;
+    }
+    .link-button i {
+        font-size: 1.1em;
+        margin-right: 8px;
+    }
+    .elfsight-reviews-widget {
+        margin-top: 25px;
+    }
+    .footer-text {
+        font-size: 0.85em;
+        margin-top: 25px;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+    .gallery-item img {
+        height: 100px;
+    }
+    .dark-mode-toggle {
+        font-size: 1.3em;
+        top: 10px;
+        right: 10px;
+        padding: 8px;
+    }
+}
+
+/* --- ANIMACIONES CSS KEYFRAMES --- */
+
+/* Animación de entrada para el contenedor principal */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Animación para la imagen de perfil */
+@keyframes profilePicGrow {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animación de rebote para botones al pasar el ratón */
+@keyframes buttonBounce {
+    0% { transform: translateY(-5px) scale(1.02); }
+    50% { transform: translateY(-8px) scale(1.03); }
+    100% { transform: translateY(-5px) scale(1.02); }
+}
+
+/* Animación de onda para los enlaces/botones y otros elementos al cargar */
+@keyframes linkWave {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* --- INTENTO DE OCULTAR LA MARCA DE AGUA DE ELFSIGHT (para fines académicos y precisos) --- */
+/*
+   **Instrucciones Cruciales:**
+   1. Abre tu CodePen con el widget de Elfsight en un navegador.
+   2. Haz clic derecho sobre el texto "Free Google Reviews widget" y selecciona "Inspeccionar".
+   3. En el panel de herramientas de desarrollador, busca el elemento HTML exacto
+      que contiene ese texto. Copia su CLASE (o ID si lo tiene).
+   4. **REEMPLAZA los selectores de ejemplo a continuación con los selectores EXACTOS que encuentres.**
+   Si el elemento está dentro de un <iframe>, el CSS no funcionará directamente.
+*/
+
+/* --- SELECTORES MÁS PROBABLES (AJUSTAR SEGÚN TU INSPECCIÓN) --- */
+
+/* Intento de ocultar elementos de marca de agua por clase/atributos comunes de Elfsight */
+.eapps-form-watermark,
+.eapps-widget-footer,
+.eapps-widget-bottom-bar,
+.eapps-widget-content > div[style*="font-size: 10px;"],
+.eapps-widget-wrapper .eapps-branding,
+.eapps-logo-container,
+.eapps-text-watermark,
+.elfsight-watermark-logo,
+.elfsight-watermark-text,
+[data-eapps-element="watermark"]
+{
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    pointer-events: none !important;
+}
+
+/* Intento específico para enlaces o textos que podrían contener la marca de agua */
+.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd a[href*="elfsight.com/free-google-reviews-widget"],
+.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd a[href*="elfsight.com/"],
+.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd span:contains("Free Google Reviews widget"),
+.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd p:contains("Elfsight")
+{
+    display: none !important;
+    visibility: hidden !important;
+}
