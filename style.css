@@ -14,8 +14,8 @@
     --profile-shadow-color: rgba(0, 123, 255, 0.4);
     --button-shadow-color: rgba(0, 0, 0, 0.2);
     --button-hover-shadow-color: rgba(0, 0, 0, 0.3);
-    --gallery-shadow-color: rgba(0, 0, 0, 0.1);
-    --gallery-hover-shadow-color: rgba(0, 0, 0, 0.2);
+    --gallery-shadow-color: rgba(0, 0, 0, 0.1); /* Mantener por si se re-añade la galería */
+    --gallery-hover-shadow-color: rgba(0, 0, 0, 0.2); /* Mantener por si se re-añade la galería */
     --button-text-color: white; /* Aseguramos que el texto del botón sea blanco */
 }
 
@@ -33,8 +33,8 @@
         --profile-shadow-color: rgba(102, 179, 255, 0.4);
         --button-shadow-color: rgba(0, 0, 0, 0.4);
         --button-hover-shadow-color: rgba(0, 0, 0, 0.6);
-        --gallery-shadow-color: rgba(0, 0, 0, 0.3);
-        --gallery-hover-shadow-color: rgba(0, 0, 0, 0.5);
+        --gallery-shadow-color: rgba(0, 0, 0, 0.3); /* Mantener por si se re-añade la galería */
+        --gallery-hover-shadow-color: rgba(0, 0, 0, 0.5); /* Mantener por si se re-añade la galería */
         --button-text-color: white; /* Mantenemos el texto del botón blanco */
     }
 }
@@ -184,7 +184,7 @@ p {
     background-color: #006666; /* Azul verdoso más oscuro al pasar el ratón */
 }
 
-/* --- Estilos de la Galería --- */
+/* --- Estilos de la Galería (Mantenidos aunque el HTML haya sido eliminado, por si se re-añade) --- */
 .gallery-section {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -263,25 +263,30 @@ p {
 
 /* --- Estilos del botón de alternar modo oscuro --- */
 .dark-mode-toggle {
-    background: none;
+    background: rgba(255, 255, 255, 0.2); /* Un fondo sutil para que se vea mejor */
     border: none;
     font-size: 1.5em;
     cursor: pointer;
     color: var(--text-color-h1); /* Usa el color del título para el ícono */
-    position: absolute;
+    
+    /* MODIFICACIÓN CLAVE: Posición Fija para que siempre sea visible */
+    position: fixed; 
     top: 20px;
     right: 20px;
-    z-index: 100;
-    transition: color 0.3s ease;
+    
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    transition: color 0.3s ease, background 0.3s ease; /* Añadimos transición para el fondo */
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 50%; /* Lo hace circular */
     opacity: 0; /* Para animación de entrada */
     transform: translateY(-20px); /* Para animación de entrada */
     animation: fadeInScale 0.8s ease-out 0.5s forwards; /* Animación con retraso */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Pequeña sombra para destacarlo */
 }
 
 .dark-mode-toggle:hover {
     color: var(--profile-border-color);
+    background: rgba(255, 255, 255, 0.3); /* Un poco más oscuro al pasar el ratón */
 }
 
 /* --- OPTIMIZACIÓN PARA MÓVIL (Media Queries) --- */
@@ -320,8 +325,15 @@ p {
     .elfsight-reviews-widget {
         margin-top: 30px;
     }
-    .gallery-section h2 {
-        font-size: 1.6em;
+    /* El bloque de valoración de 5 estrellas también se ajusta */
+    .five-star-rating {
+        margin: 15px auto;
+    }
+    .five-star-rating h3 {
+        font-size: 1.2em;
+    }
+    .five-star-rating .stars {
+        font-size: 1.1em;
     }
 }
 
@@ -365,24 +377,17 @@ p {
         font-size: 0.85em;
         margin-top: 25px;
     }
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 10px;
-    }
-    .gallery-item img {
-        height: 100px;
-    }
+    /* Asegúrate de que el botón de modo oscuro se vea bien en pantallas pequeñas */
     .dark-mode-toggle {
-        font-size: 1.3em;
-        top: 10px;
-        right: 10px;
+        font-size: 1.2em; /* Un poco más pequeño para móviles */
+        top: 15px; /* Ajusta la posición para pantallas muy pequeñas */
+        right: 15px;
         padding: 8px;
     }
 }
 
 /* --- ANIMACIONES CSS KEYFRAMES --- */
-
-/* Animación de entrada para el contenedor principal */
+/* (Mantener como están, ya están aplicadas a los elementos correctos) */
 @keyframes fadeInScale {
     from {
         opacity: 0;
@@ -394,7 +399,6 @@ p {
     }
 }
 
-/* Animación para la imagen de perfil */
 @keyframes profilePicGrow {
     from {
         transform: scale(0.9);
@@ -406,14 +410,12 @@ p {
     }
 }
 
-/* Animación de rebote para botones al pasar el ratón */
 @keyframes buttonBounce {
     0% { transform: translateY(-5px) scale(1.02); }
     50% { transform: translateY(-8px) scale(1.03); }
     100% { transform: translateY(-5px) scale(1.02); }
 }
 
-/* Animación de onda para los enlaces/botones y otros elementos al cargar */
 @keyframes linkWave {
     from {
         opacity: 0;
@@ -426,20 +428,32 @@ p {
 }
 
 
-/* --- INTENTO DE OCULTAR LA MARCA DE AGUA DE ELFSIGHT (para fines académicos y precisos) --- */
-/*
-   **Instrucciones Cruciales:**
-   1. Abre tu CodePen con el widget de Elfsight en un navegador.
-   2. Haz clic derecho sobre el texto "Free Google Reviews widget" y selecciona "Inspeccionar".
-   3. En el panel de herramientas de desarrollador, busca el elemento HTML exacto
-      que contiene ese texto. Copia su CLASE (o ID si lo tiene).
-   4. **REEMPLAZA los selectores de ejemplo a continuación con los selectores EXACTOS que encuentres.**
-   Si el elemento está dentro de un <iframe>, el CSS no funcionará directamente.
-*/
+/* --- Estilos para resaltar la Valoración de 5 Estrellas --- */
+.five-star-rating {
+    text-align: center;
+    margin: 30px auto; /* Más espacio arriba y abajo para destacarse */
+    opacity: 0; /* Para animación de entrada */
+    transform: translateY(20px); /* Para animación de entrada */
+    animation: fadeInScale 0.8s ease-out 1.3s forwards; /* Animación con retraso después de los botones */
+}
 
-/* --- SELECTORES MÁS PROBABLES (AJUSTAR SEGÚN TU INSPECCIÓN) --- */
+.five-star-rating h3 {
+    color: var(--text-color-h1);
+    font-size: 1.5em; /* Título un poco más grande */
+    margin-bottom: 8px;
+    font-weight: 700;
+}
 
-/* Intento de ocultar elementos de marca de agua por clase/atributos comunes de Elfsight */
+.five-star-rating .stars {
+    color: gold; /* Color dorado para las estrellas */
+    font-size: 1.6em; /* Estrellas más grandes */
+}
+
+.five-star-rating .stars i {
+    margin: 0 4px; /* Espacio entre cada estrella */
+}
+
+/* --- INTENTO DE OCULTAR LA MARCA DE AGUA DE ELFSIGHT (Mantenido) --- */
 .eapps-form-watermark,
 .eapps-widget-footer,
 .eapps-widget-bottom-bar,
@@ -462,11 +476,9 @@ p {
     pointer-events: none !important;
 }
 
-/* Intento específico para enlaces o textos que podrían contener la marca de agua */
 .elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd a[href*="elfsight.com/free-google-reviews-widget"],
 .elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd a[href*="elfsight.com/"],
-.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd span:contains("Free Google Reviews widget"),
-.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd p:contains("Elfsight")
+.elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd p:contains("Elfsight") /* Atención: :contains no es CSS estándar. Mejor usar clases específicas si existen. */
 {
     display: none !important;
     visibility: hidden !important;

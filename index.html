@@ -13,15 +13,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Link en Bio</title>
+    <title>YESARTDECO - Diseño Personalizado en Muebles</title> 
+
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon"> 
     <script src="https://static.elfsight.com/platform/platform.js" async></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mi-link-en-bio.vercel.app/"> <meta property="og:title" content="YESARTDECO - Diseño Personalizado en Muebles"> 
+    <meta property="og:description" content="Crea tu espacio perfecto con nosotros. Diseño y fabricación de muebles a medida."> 
+    <meta property="og:image" content="https://mi-link-en-bio.vercel.app/images/mi-foto-perfil.jpg"> 
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mi-link-en-bio.vercel.app/"> 
+    <meta property="twitter:title" content="YESARTDECO - Diseño Personalizado en Muebles"> 
+    <meta property="twitter:description" content="Crea tu espacio perfecto con nosotros. Diseño y fabricación de muebles a medida."> 
+    <meta property="twitter:image" content="https://mi-link-en-bio.vercel.app/images/mi-foto-perfil.jpg"> 
+
 </head>
 <body>
+    <button id="darkModeToggle" class="dark-mode-toggle">
+        <i class="fas fa-moon"></i> 
+    </button>
+
     <div class="link-container">
-        <img src="https://placehold.co/150x150/007bff/ffffff?text=Tu+Foto" alt="Tu Foto de Perfil" class="profile-pic">
-        <h1>¡Hola! Soy Tu Nombre</h1>
-        <p>Explora mis enlaces más importantes:</p>
+        <img src="./images/mi-foto-perfil.jpg" alt="Foto de Perfil de YESARTDECO" class="profile-pic"> 
+        
+        <h1>YESARTDECO</h1> 
+        <p>Diseño Personalizado en Muebles<br>Crea tu espacio perfecto con nosotros</p> 
 
         <a href="https://wa.me/5493515519368" target="_blank" class="link-button whatsapp">
             <i class="fab fa-whatsapp"></i> WhatsApp
@@ -32,13 +52,56 @@
         </a>
         
         <a href="https://drive.google.com/file/d/1dEb6vR9GB4llOImvUN8sytVmORQYdnzm/view?usp=sharing" target="_blank" class="link-button catalog">
-            <i class="fas fa-book-open"></i> Catálogo
+            <i class="fas fa-book-open"></i> Catálogo de Productos
         </a>
         
+        <div class="five-star-rating">
+            <h3>Nuestros Clientes Nos Califican con 5 Estrellas</h3> <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
         <div class="elfsight-app-5acfe24d-29cf-4fb5-94c2-89217109f7dd elfsight-reviews-widget" data-elfsight-app-lazy></div>
 
-        <p class="footer-text">¡Gracias por visitar!</p>
+        <p class="footer-text">¡Gracias por visitar! Creado con ❤️ para YESARTDECO</p> 
     </div>
+
+    <script>
+        const toggleButton = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // Función para aplicar el modo
+        function applyMode(isDarkMode) {
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                toggleButton.innerHTML = '<i class="fas fa-sun"></i>'; // Cambiar a ícono de sol
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                toggleButton.innerHTML = '<i class="fas fa-moon"></i>'; // Cambiar a ícono de luna
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Cargar el modo guardado o detectar la preferencia del sistema
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyMode(savedTheme === 'dark');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // Si el sistema está en modo oscuro y no hay preferencia guardada
+            applyMode(true);
+        } else {
+            applyMode(false); // Por defecto, modo claro
+        }
+
+        // Evento para alternar el modo al hacer clic en el botón
+        toggleButton.addEventListener('click', () => {
+            applyMode(!body.classList.contains('dark-mode'));
+        });
+    </script>
 </body>
 </html>
 <!-- partial -->
